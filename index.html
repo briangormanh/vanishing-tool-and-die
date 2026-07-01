@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reshoring's Missing Piece: America's Vanishing Tool &amp; Die Makers</title>
+<meta name="description" content="The U.S. is trying to bring factories home, but the trade that builds the tooling those factories run on has lost more than 1 in 4 workers in a decade. Ohio was hit hardest of any large state. A data brief from Westlake Tool & Die.">
+<meta property="og:title" content="Reshoring's Missing Piece: America's Vanishing Tool & Die Makers">
+<meta property="og:description" content="The U.S. has lost more than 1 in 4 tool and die makers in a decade. Ohio, ranked #2 in the country, was hit hardest of any large state.">
+<meta property="og:type" content="article">
+<style>
+  :root{
+    /* Brand palette (from client's live site) */
+    --slate:#2f3e4e;
+    --slate-deep:#243140;
+    --slate-ink:#1c2733;
+    --blue:#1a5fb4;
+    --green:#16a34a;
+    --green-bright:#1bbf3a;
+    --amber:#db8c00;
+    --bg:#f5f5f5;
+    --surface:#ffffff;
+    --text:#333333;
+    --hairline:#cfcfcf;
+    --muted:#6b7683;
+    --muted-light:#9aa4ae;
+
+    /* choropleth ramp (blue, light to deep) */
+    --c0:#e4e4e4;      /* not reported */
+    --c1:#dce7f4;
+    --c2:#a7c3e6;
+    --c3:#5f8fca;
+    --c4:#2f66b0;
+    --c5:#123c78;
+
+    --sans:"Helvetica Neue",Helvetica,Arial,"Segoe UI",system-ui,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,"Liberation Mono",monospace;
+
+    --maxw:1080px;
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--blue)}
+  img{max-width:100%}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+  /* ---------- Type system ---------- */
+  h1,h2,h3{font-family:var(--sans);font-weight:800;line-height:1.08;letter-spacing:-.02em;color:var(--slate-ink);margin:0}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:.24em;
+    text-transform:uppercase;
+    color:var(--blue);
+    font-weight:600;
+    display:flex;align-items:center;gap:12px;
+  }
+  .eyebrow::after{content:"";flex:1;height:1px;background:var(--hairline)}
+  .eyebrow--light{color:#8fb4e6}
+  .eyebrow--light::after{background:rgba(255,255,255,.18)}
+
+  .readout{font-family:var(--mono);font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+
+  /* ---------- Section frame ---------- */
+  .section{padding:72px 0;border-top:1px solid var(--hairline)}
+  .section__head{max-width:720px;margin-bottom:36px}
+  .section__title{font-size:clamp(26px,4vw,38px);margin:14px 0 12px}
+  .section__lede{font-size:18px;color:var(--muted);max-width:640px}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    background:
+      linear-gradient(180deg,var(--slate) 0%,var(--slate-deep) 60%,var(--slate-ink) 100%);
+    color:#eef2f6;
+    position:relative;
+    overflow:hidden;
+    border-bottom:3px solid var(--amber);
+  }
+  /* faint blueprint grid + tick ruler = the precision-trade signature */
+  .hero::before{
+    content:"";position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+    background-size:44px 44px;
+    mask-image:linear-gradient(180deg,rgba(0,0,0,.9),transparent 85%);
+    -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.9),transparent 85%);
+    pointer-events:none;
+  }
+  .hero .wrap{position:relative;padding-top:56px;padding-bottom:64px}
+  .hero__kicker{color:#8fb4e6;margin-bottom:26px}
+  .hero__title{
+    font-size:clamp(34px,6.2vw,66px);
+    color:#fff;
+    max-width:15ch;
+    margin-bottom:22px;
+  }
+  .hero__title .amber{color:var(--amber)}
+  .hero__dek{
+    font-size:clamp(17px,2.2vw,21px);
+    color:#c4d0da;
+    max-width:56ch;
+    line-height:1.5;
+    font-weight:400;
+  }
+
+  /* lead stat readout */
+  .lead{
+    margin-top:44px;
+    display:grid;
+    grid-template-columns:minmax(0,auto) 1fr;
+    gap:34px 44px;
+    align-items:end;
+  }
+  .lead__num{
+    font-family:var(--mono);
+    font-weight:700;
+    font-size:clamp(64px,13vw,132px);
+    line-height:.86;
+    color:#fff;
+    letter-spacing:-.03em;
+    position:relative;
+    padding-left:18px;
+  }
+  .lead__num::before{
+    content:"";position:absolute;left:0;top:6%;bottom:6%;width:4px;background:var(--amber);
+  }
+  .lead__num .pct{font-size:.42em;color:var(--amber);vertical-align:top;margin-left:4px}
+  .lead__caption{font-family:var(--mono);font-size:13px;letter-spacing:.06em;color:#9fb0bf;margin-top:16px;text-transform:uppercase}
+  .lead__caption b{color:#eef2f6;font-weight:600}
+
+  /* depletion gauge */
+  .gauge{align-self:end}
+  .gauge__label{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;color:#9fb0bf;margin-bottom:8px;letter-spacing:.04em}
+  .gauge__bar{height:46px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);display:flex;overflow:hidden;position:relative}
+  .gauge__fill{background:linear-gradient(90deg,#2f6cb5,#4f88cf);width:0;transition:width 1.4s cubic-bezier(.16,.84,.3,1)}
+  .gauge__lost{flex:1;position:relative;background:
+      repeating-linear-gradient(45deg,rgba(219,140,0,.28),rgba(219,140,0,.28) 7px,rgba(219,140,0,.12) 7px,rgba(219,140,0,.12) 14px);
+      border-left:2px solid var(--amber)}
+  .gauge__tag{position:absolute;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.02em}
+  .gauge__tag--in{left:12px;color:#eaf1fa}
+  .gauge__tag--lost{right:12px;color:#f3c27a}
+  .gauge__foot{font-family:var(--mono);font-size:11.5px;color:#8492a0;margin-top:9px;letter-spacing:.03em}
+
+  /* ---------- national readout strip ---------- */
+  .strip{background:var(--slate-ink);color:#dfe6ec;padding:0}
+  .strip__grid{display:grid;grid-template-columns:repeat(4,1fr)}
+  .stat{padding:30px 26px;border-left:1px solid rgba(255,255,255,.09)}
+  .stat:first-child{border-left:0}
+  .stat__num{font-family:var(--mono);font-weight:700;font-size:clamp(26px,3.4vw,38px);color:#fff;letter-spacing:-.01em;line-height:1}
+  .stat__num.neg{color:var(--amber)}
+  .stat__num.pos{color:var(--green-bright)}
+  .stat__label{font-size:13.5px;color:#93a1ad;margin-top:10px;line-height:1.35}
+
+  /* ---------- figure block ---------- */
+  .figtag{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--amber);font-weight:600;text-transform:uppercase}
+
+  /* map */
+  .maplayout{display:grid;grid-template-columns:1fr 300px;gap:40px;align-items:start}
+  .mapgrid{
+    display:grid;
+    grid-template-columns:repeat(11,1fr);
+    gap:5px;
+    max-width:640px;
+  }
+  .tile{
+    position:relative;
+    aspect-ratio:1/1;
+    background:var(--c0);
+    border:1px solid rgba(0,0,0,.06);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);
+    font-size:clamp(9px,1.15vw,12px);
+    font-weight:600;
+    color:#31404e;
+    cursor:default;
+    transition:transform .12s ease,box-shadow .12s ease;
+    user-select:none;
+  }
+  .tile[data-has="1"]{cursor:pointer}
+  .tile[data-dark="1"]{color:#eaf1fa}
+  .tile[data-nr="1"]{color:#9aa4ae;background:var(--c0);
+    background-image:repeating-linear-gradient(45deg,rgba(0,0,0,.045),rgba(0,0,0,.045) 3px,transparent 3px,transparent 6px)}
+  .tile.oh{outline:3px solid var(--amber);outline-offset:0;z-index:2}
+  .tile:hover,.tile:focus-visible{transform:translateY(-2px);box-shadow:0 6px 16px rgba(28,39,51,.28);z-index:3;outline:3px solid var(--slate-ink);outline-offset:0}
+  .tile.oh:hover,.tile.oh:focus-visible{outline-color:var(--amber)}
+
+  .legend{border:1px solid var(--hairline);background:var(--surface);padding:22px}
+  .legend h4{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--slate);margin:0 0 16px;font-weight:700}
+  .legend__row{display:flex;align-items:center;gap:11px;margin-bottom:9px;font-size:13.5px;color:var(--text)}
+  .legend__sw{width:22px;height:22px;flex:none;border:1px solid rgba(0,0,0,.12)}
+  .legend__nr{background-image:repeating-linear-gradient(45deg,rgba(0,0,0,.06),rgba(0,0,0,.06) 3px,transparent 3px,transparent 6px)}
+  .legend__note{font-size:12.5px;color:var(--muted);margin-top:16px;line-height:1.45;border-top:1px solid var(--hairline);padding-top:14px}
+
+  /* floating tooltip */
+  .tt{
+    position:fixed;z-index:60;pointer-events:none;
+    background:var(--slate-ink);color:#eef2f6;
+    border:1px solid rgba(255,255,255,.14);
+    border-top:3px solid var(--amber);
+    padding:14px 16px;min-width:210px;max-width:260px;
+    box-shadow:0 14px 34px rgba(0,0,0,.36);
+    opacity:0;transform:translateY(4px);transition:opacity .12s;
+    font-size:13px;
+  }
+  .tt.on{opacity:1}
+  .tt__name{font-weight:800;font-size:16px;color:#fff;margin-bottom:2px}
+  .tt__rank{font-family:var(--mono);font-size:11.5px;color:#8fb4e6;letter-spacing:.06em;margin-bottom:10px}
+  .tt__row{display:flex;justify-content:space-between;gap:16px;padding:3px 0;border-top:1px solid rgba(255,255,255,.08)}
+  .tt__row:first-of-type{border-top:0}
+  .tt__k{color:#a7b4c0}
+  .tt__v{font-family:var(--mono);font-weight:700;color:#fff}
+  .tt__v.neg{color:#f0a94e}
+  .tt__v.pos{color:#4fd06a}
+
+  /* ---------- leaderboard table ---------- */
+  .tablewrap{overflow-x:auto;border:1px solid var(--hairline);background:var(--surface)}
+  table.lb{border-collapse:collapse;width:100%;min-width:720px;font-size:14.5px}
+  .lb thead th{
+    background:var(--slate);color:#eef2f6;
+    font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;font-weight:600;
+    text-align:right;padding:14px 16px;cursor:pointer;white-space:nowrap;position:sticky;top:0;
+    border-left:1px solid rgba(255,255,255,.08);
+  }
+  .lb thead th:first-child,.lb thead th:nth-child(2){text-align:left;border-left:0}
+  .lb thead th .arrow{opacity:.35;margin-left:5px;font-size:10px}
+  .lb thead th[aria-sort="descending"] .arrow,.lb thead th[aria-sort="ascending"] .arrow{opacity:1;color:var(--amber)}
+  .lb tbody td{padding:11px 16px;text-align:right;border-top:1px solid #eaeaea;font-family:var(--mono);font-variant-numeric:tabular-nums;color:var(--text)}
+  .lb tbody td.st{text-align:left;font-family:var(--sans);font-weight:600;color:var(--slate-ink)}
+  .lb tbody td.rk{text-align:left;color:var(--muted)}
+  .lb tbody tr:hover{background:#f0f5fb}
+  .lb tbody td.neg{color:#b56b00}
+  .lb tbody td.pos{color:var(--green)}
+  .lb tr.oh td{background:#fbf1dd}
+  .lb tr.oh:hover td{background:#f8ead0}
+  .lb tr.oh td.st{box-shadow:inset 4px 0 0 var(--amber)}
+  .lb .nrtxt{color:var(--muted-light);font-family:var(--sans);font-style:normal}
+  .tbl-note{font-size:12.5px;color:var(--muted);margin-top:14px;line-height:1.5}
+
+  /* ---------- myth-buster ---------- */
+  .myth{background:var(--slate-ink);color:#eef2f6;border-top:3px solid var(--amber)}
+  .myth .figtag{color:var(--amber)}
+  .myth h2{color:#fff}
+  .myth__lede{color:#c4d0da}
+  .mcompare{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:36px}
+  .mcard{border:1px solid rgba(255,255,255,.14);padding:28px 26px;background:rgba(255,255,255,.03)}
+  .mcard--myth{opacity:.86}
+  .mcard--real{border-color:var(--green);background:rgba(27,191,58,.07)}
+  .mcard__tag{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px}
+  .mcard--myth .mcard__tag{color:#f0a94e}
+  .mcard--real .mcard__tag{color:var(--green-bright)}
+  .mcard__num{font-family:var(--mono);font-weight:700;font-size:clamp(48px,9vw,84px);line-height:.9;color:#fff}
+  .mcard--myth .mcard__num{color:#7d8a97;text-decoration:line-through;text-decoration-color:var(--amber);text-decoration-thickness:4px}
+  .mcard--real .mcard__num{color:var(--green-bright)}
+  .mcard__sub{margin-top:14px;color:#b9c4ce;font-size:14.5px}
+  .mcard--real .mcard__sub{color:#d5e6da}
+  .myth__foot{margin-top:26px;font-size:14.5px;color:#aeb9c4;max-width:66ch}
+  .myth__foot b{color:#eef2f6}
+
+  /* ---------- reshoring framing ---------- */
+  .reshore__flow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;margin-top:14px;border:1px solid var(--hairline);background:var(--surface)}
+  .flowcell{padding:30px 26px;border-left:1px solid var(--hairline);position:relative}
+  .flowcell:first-child{border-left:0}
+  .flowcell__num{font-family:var(--mono);font-weight:700;font-size:clamp(30px,4vw,42px);line-height:1;color:var(--slate-ink)}
+  .flowcell__num.amber{color:var(--amber)}
+  .flowcell__num.blue{color:var(--blue)}
+  .flowcell__label{font-weight:700;color:var(--slate-ink);margin:12px 0 6px;font-size:16px}
+  .flowcell__body{font-size:14.5px;color:var(--muted);line-height:1.5}
+  .reshore__pull{margin-top:32px;border-left:4px solid var(--amber);padding:6px 0 6px 22px;font-size:20px;line-height:1.45;color:var(--slate-ink);font-weight:600;max-width:62ch}
+
+  /* ---------- quotes ---------- */
+  .quotes{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .quote{background:var(--surface);border:1px solid var(--hairline);border-top:3px solid var(--blue);padding:32px 30px;position:relative}
+  .quote--expert{border-top-color:var(--slate)}
+  .quote__mark{font-family:Georgia,serif;font-size:64px;line-height:.5;color:var(--hairline);height:26px}
+  .quote__body{font-size:19px;line-height:1.5;color:var(--slate-ink);font-weight:500}
+  .quote__by{margin-top:22px;padding-top:16px;border-top:1px solid var(--hairline);font-size:14px;color:var(--muted)}
+  .quote__by b{color:var(--slate-ink);display:block;font-size:15px}
+  .quote__pending{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;background:#fbf1dd;color:#a86a00;border:1px dashed var(--amber);padding:4px 8px;margin-bottom:16px;font-weight:600}
+
+  /* ---------- share ---------- */
+  .share{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .share__lbl{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-right:6px}
+  .sbtn{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:14px;font-weight:600;color:var(--slate-ink);
+    background:var(--surface);border:1px solid var(--hairline);
+    padding:9px 15px;cursor:pointer;text-decoration:none;font-family:var(--sans);
+    transition:border-color .12s,background .12s,transform .1s;
+  }
+  .sbtn:hover{border-color:var(--blue);background:#f0f5fb}
+  .sbtn:active{transform:translateY(1px)}
+  .sbtn svg{width:16px;height:16px;flex:none}
+  .sbtn--copy.copied{border-color:var(--green);color:var(--green);background:#eefaf0}
+
+  /* ---------- embed ---------- */
+  .embed{background:var(--surface);border:1px solid var(--hairline);padding:26px}
+  .embed h3{font-size:19px;margin-bottom:8px}
+  .embed p{font-size:14.5px;color:var(--muted);margin:0 0 16px}
+  .embed textarea{
+    width:100%;min-height:132px;resize:vertical;
+    font-family:var(--mono);font-size:12.5px;line-height:1.55;
+    color:#2b3743;background:#f7f9fb;border:1px solid var(--hairline);
+    padding:14px;
+  }
+  .embed__preview{
+    margin-top:16px;border:1px dashed var(--hairline);padding:14px 16px;
+    font-size:13px;color:var(--muted);background:#fafbfc;
+  }
+  .embed__preview b{color:var(--slate-ink)}
+  .embed__credit a{font-weight:600}
+
+  /* ---------- CTA ---------- */
+  .cta{background:linear-gradient(160deg,var(--slate),var(--slate-ink));color:#eef2f6;border-top:3px solid var(--blue)}
+  .cta h2{color:#fff;font-size:clamp(26px,4vw,38px);max-width:20ch}
+  .cta p{color:#c4d0da;font-size:18px;max-width:62ch;margin:18px 0 0}
+  .cta__actions{margin-top:32px;display:flex;flex-wrap:wrap;gap:14px}
+  .btn{
+    display:inline-flex;align-items:center;gap:9px;
+    font-weight:700;font-size:16px;text-decoration:none;padding:15px 26px;
+    transition:transform .1s,box-shadow .15s;
+  }
+  .btn--primary{background:var(--amber);color:#231a00}
+  .btn--primary:hover{box-shadow:0 8px 22px rgba(219,140,0,.34);transform:translateY(-1px)}
+  .btn--ghost{background:transparent;color:#eef2f6;border:1px solid rgba(255,255,255,.32)}
+  .btn--ghost:hover{border-color:#fff;background:rgba(255,255,255,.06)}
+
+  /* ---------- methodology ---------- */
+  .method{background:#eef1f4}
+  .method h3{font-size:17px;margin:26px 0 8px;color:var(--slate-ink)}
+  .method h3:first-of-type{margin-top:0}
+  .method p,.method li{font-size:15px;color:#465059;line-height:1.6}
+  .method ul{padding-left:20px;margin:8px 0}
+  .method li{margin-bottom:8px}
+  .method__cols{display:grid;grid-template-columns:1.3fr 1fr;gap:44px}
+  .srcbox{background:var(--surface);border:1px solid var(--hairline);padding:22px 24px}
+  .srcbox h4{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--slate);margin:0 0 14px}
+  .srcbox ul{list-style:none;padding:0;margin:0}
+  .srcbox li{padding:9px 0;border-top:1px solid #eaeaea;font-size:14px}
+  .srcbox li:first-child{border-top:0}
+  .srcbox a{font-weight:600;word-break:break-word}
+  .srcbox span{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
+
+  /* ---------- footer ---------- */
+  footer{background:var(--slate-ink);color:#93a1ad;font-size:13px;padding:30px 0}
+  footer a{color:#8fb4e6}
+  footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px;align-items:center}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:900px){
+    .maplayout{grid-template-columns:1fr}
+    .mapgrid{max-width:520px;margin:0 auto}
+    .method__cols{grid-template-columns:1fr;gap:28px}
+    .lead{grid-template-columns:1fr;gap:30px}
+  }
+  @media (max-width:760px){
+    body{font-size:16px}
+    .strip__grid{grid-template-columns:1fr 1fr}
+    .stat:nth-child(3){border-left:0}
+    .quotes,.mcompare{grid-template-columns:1fr}
+    .reshore__flow{grid-template-columns:1fr}
+    .flowcell{border-left:0;border-top:1px solid var(--hairline)}
+    .flowcell:first-child{border-top:0}
+    .section{padding:52px 0}
+    .cta__actions{flex-direction:column;align-items:stretch}
+    .btn{justify-content:center}
+  }
+  @media (max-width:460px){
+    .mapgrid{gap:3px}
+    .tile{font-size:8.5px}
+    .stat__num{font-size:26px}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  }
+
+  :focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+  .tile:focus-visible{outline-offset:0}
+</style>
+</head>
+<body>
+
+<!-- ===================== HERO ===================== -->
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow eyebrow--light hero__kicker">Data brief &middot; U.S. tool &amp; die workforce, 2014-2024</div>
+    <h1 class="hero__title">Reshoring's missing piece: America's <span class="amber">vanishing</span> tool &amp; die makers</h1>
+    <p class="hero__dek">The country is racing to bring factories home. But the skilled trade that builds the tools those factories run on has quietly lost more than 1 in 4 of its workers in a single decade.</p>
+
+    <div class="lead">
+      <div>
+        <div class="lead__num readout"><span id="leadNum">0</span><span class="pct">%</span></div>
+        <div class="lead__caption">Drop in U.S. tool &amp; die makers, <b id="leadYears">2014 to 2024</b></div>
+      </div>
+      <div class="gauge">
+        <div class="gauge__label"><span id="g2014">75,950 in 2014</span><span id="g2024">55,130 in 2024</span></div>
+        <div class="gauge__bar" role="img" aria-label="Depletion bar: the workforce shrank from 2014 to 2024">
+          <div class="gauge__fill" id="gFill"><span class="gauge__tag gauge__tag--in" id="gIn"></span></div>
+          <div class="gauge__lost"><span class="gauge__tag gauge__tag--lost" id="gLost"></span></div>
+        </div>
+        <div class="gauge__foot" id="gFoot">Each decade, fewer hands are left to make the tooling every factory depends on.</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== NATIONAL READOUT STRIP ===================== -->
+<section class="strip" aria-label="National figures at a glance">
+  <div class="strip__grid">
+    <div class="stat"><div class="stat__num readout" id="sWorkers"></div><div class="stat__label">tool &amp; die makers left in the U.S. today</div></div>
+    <div class="stat"><div class="stat__num readout neg" id="sLost"></div><div class="stat__label">workers gone since 2014</div></div>
+    <div class="stat"><div class="stat__num readout neg" id="sRetire"></div><div class="stat__label">likely to retire this decade (about <span id="sRetireShare"></span> of the workforce is 55 or older)</div></div>
+    <div class="stat"><div class="stat__num readout pos" id="sReshore"></div><div class="stat__label">reshoring &amp; foreign-investment factory jobs announced in 2024</div></div>
+  </div>
+</section>
+
+<!-- ===================== MAP ===================== -->
+<section class="section" id="map">
+  <div class="wrap">
+    <div class="section__head">
+      <div class="figtag">Fig. 01 / where the trade still lives</div>
+      <h2 class="section__title">The map of a shrinking craft</h2>
+      <p class="section__lede">A handful of Great Lakes and Midwest states still hold most of the country's tool &amp; die makers. Hover or tap any state for its full picture. States with no reported figure are shown in gray.</p>
+    </div>
+
+    <div class="maplayout">
+      <div>
+        <div class="mapgrid" id="mapGrid" role="group" aria-label="United States tile map of tool and die workers by state"></div>
+      </div>
+      <aside class="legend">
+        <h4>Workers per state, 2024</h4>
+        <div id="legendRows"></div>
+        <div class="legend__row"><span class="legend__sw legend__nr" style="background:var(--c0)"></span><span>Not reported</span></div>
+        <div class="legend__note">Shading reflects the number of tool &amp; die makers working in each state as of 2024. Ohio is outlined in amber. Some smaller states are not published and appear gray.</div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== OHIO ANGLE ===================== -->
+<section class="section" style="background:#eef1f4">
+  <div class="wrap">
+    <div class="section__head">
+      <div class="figtag">The Ohio story</div>
+      <h2 class="section__title" id="ohTitle">#2 in the country, and hit harder than any other big state</h2>
+      <p class="section__lede" id="ohLede"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LEADERBOARD ===================== -->
+<section class="section" id="table">
+  <div class="wrap">
+    <div class="section__head">
+      <div class="figtag">Fig. 02 / state leaderboard</div>
+      <h2 class="section__title">Every state, ranked</h2>
+      <p class="section__lede">Sorted by the number of tool &amp; die makers working today. Click any column heading to re-sort. Ohio is highlighted.</p>
+    </div>
+
+    <div class="tablewrap">
+      <table class="lb" id="lbTable">
+        <thead>
+          <tr>
+            <th data-key="rank" data-type="num" title="Rank by workers today">Rank <span class="arrow">&#9660;</span></th>
+            <th data-key="state" data-type="str" title="State">State <span class="arrow">&#9660;</span></th>
+            <th data-key="workers_2024" data-type="num" title="Workers in 2024">Workers <span class="arrow">&#9660;</span></th>
+            <th data-key="lq" data-type="num" title="How concentrated the trade is versus the national average (1.0 = average)">Concentration<br>(1.0 = U.S. avg) <span class="arrow">&#9660;</span></th>
+            <th data-key="change_pct" data-type="num" title="Change in workers, 2014 to 2024">Decade change <span class="arrow">&#9660;</span></th>
+            <th data-key="est_retire" data-type="num" title="Estimated makers likely to retire this decade">Likely to retire <span class="arrow">&#9660;</span></th>
+            <th data-key="establishments" data-type="num" title="Number of tool, die and mold shops">Shops <span class="arrow">&#9660;</span></th>
+          </tr>
+        </thead>
+        <tbody id="lbBody"></tbody>
+      </table>
+    </div>
+    <p class="tbl-note"><b>Concentration</b> compares how common the trade is in a state versus the country as a whole. A value of 1.0 means average; 3.0 means the trade is three times as concentrated there as it is nationally. <b>Likely to retire</b> applies the national share of workers aged 55 and older to each state, so it is an estimate, not a head count. A blank means the figure was not reported.</p>
+  </div>
+</section>
+
+<!-- ===================== MYTH-BUSTER ===================== -->
+<section class="section myth" id="myth">
+  <div class="wrap">
+    <div class="section__head">
+      <div class="figtag">Fig. 03 / setting the record straight</div>
+      <h2 class="section__title">The "2% under 35" claim is wrong</h2>
+      <p class="section__lede myth__lede">A striking number gets repeated in trade coverage: that only 2% of tool &amp; die makers are under 35. We checked it against the Census Bureau's own worker records. It does not hold up.</p>
+    </div>
+
+    <div class="mcompare">
+      <div class="mcard mcard--myth">
+        <div class="mcard__tag">The claim you've read</div>
+        <div class="mcard__num">2%</div>
+        <div class="mcard__sub">Often repeated as the share of tool &amp; die makers under age 35. We could not find data behind it.</div>
+      </div>
+      <div class="mcard mcard--real">
+        <div class="mcard__tag">What the records show</div>
+        <div class="mcard__num readout"><span id="mythReal">0</span>%</div>
+        <div class="mcard__sub">The actual share under 35, from Census worker microdata. Roughly seven times higher than the number in circulation.</div>
+      </div>
+    </div>
+    <p class="myth__foot">The trade is genuinely older than most: the average maker is about <b id="mythMean"></b>, and about <b id="mythOlder"></b> are over 45. Those facts are real, and they are why the retirement wave ahead is serious. But the "2%" figure overstates the youth gap and hides the apprentices who are, in fact, entering the trade.</p>
+  </div>
+</section>
+
+<!-- ===================== RESHORING FRAMING ===================== -->
+<section class="section" id="reshoring">
+  <div class="wrap">
+    <div class="section__head">
+      <div class="figtag">The bottleneck</div>
+      <h2 class="section__title">A factory boom needs toolmakers to build the tools</h2>
+      <p class="section__lede">Before a plant can stamp a part or mold a component, someone has to build the die or the mold first. That is the toolmaker's job, and the country is trying to reshore faster than it is replacing them.</p>
+    </div>
+
+    <div class="reshore__flow">
+      <div class="flowcell">
+        <div class="flowcell__num pos readout" id="fReshore"></div>
+        <div class="flowcell__label">Factory jobs coming home</div>
+        <div class="flowcell__body">Reshoring and foreign-investment manufacturing jobs announced in 2024 alone.</div>
+      </div>
+      <div class="flowcell">
+        <div class="flowcell__num readout" id="fOpenings"></div>
+        <div class="flowcell__label">Unfilled factory jobs</div>
+        <div class="flowcell__body">Open manufacturing roles that need skilled hands to fill them.</div>
+      </div>
+      <div class="flowcell">
+        <div class="flowcell__num amber readout" id="fRetire"></div>
+        <div class="flowcell__label">Toolmakers set to retire</div>
+        <div class="flowcell__body">Makers likely to leave the trade this decade, right as demand climbs.</div>
+      </div>
+    </div>
+
+    <p class="reshore__pull">Reshoring can bring the factory back. It cannot, on its own, bring back the toolmaker who makes the factory run.</p>
+  </div>
+</section>
+
+<!-- ===================== QUOTES ===================== -->
+<section class="section" style="background:#eef1f4" id="voices">
+  <div class="wrap">
+    <div class="section__head">
+      <div class="figtag">Voices from the trade</div>
+      <h2 class="section__title">What it looks like from the shop floor</h2>
+    </div>
+
+    <div class="quotes">
+      <!-- PENDING: Replace with a real, approved first-person quote from Westlake Tool & Die leadership (survivor-of-the-trade voice). -->
+      <figure class="quote quote--ceo">
+        <span class="quote__pending">Pending client quote</span>
+        <div class="quote__mark">&ldquo;</div>
+        <blockquote class="quote__body">We have watched shops around us close for twenty years. The steel did not get harder to cut. We just stopped training the people who know how to cut it. If the country wants its factories back, someone has to still know how to build the tools those factories run on. That is the work we never walked away from.</blockquote>
+        <figcaption class="quote__by"><b>PENDING CLIENT QUOTE</b>Leadership, Westlake Tool &amp; Die &middot; Avon, Ohio</figcaption>
+      </figure>
+
+      <!-- PENDING: Replace with a real, sourced quote from an outside labor economist or academic (e.g., Susan Houseman, Upjohn Institute; or Harry Moser, Reshoring Initiative). -->
+      <figure class="quote quote--expert">
+        <span class="quote__pending">Pending expert quote (Houseman / Moser)</span>
+        <div class="quote__mark">&ldquo;</div>
+        <blockquote class="quote__body">You can announce a new plant in a press release. You cannot announce a journeyman toolmaker. That skill takes years to build, and the pipeline that used to build it has thinned out just as reshoring demand is picking up.</blockquote>
+        <figcaption class="quote__by"><b>PENDING EXPERT QUOTE (Houseman / Moser)</b>Labor economist &middot; source and title to confirm</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SHARE + EMBED ===================== -->
+<section class="section" id="share">
+  <div class="wrap">
+    <div class="section__head" style="margin-bottom:24px">
+      <div class="figtag">Use this study</div>
+      <h2 class="section__title">Share it or embed it</h2>
+      <p class="section__lede">Reporters and editors are welcome to cite these figures. A credit link back keeps the data traceable to its source.</p>
+    </div>
+
+    <div class="share" style="margin-bottom:40px">
+      <span class="share__lbl">Share</span>
+      <a class="sbtn" id="shX" href="#" target="_blank" rel="noopener" aria-label="Share on X">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-7.3 8.4L23.3 22h-6.8l-5.3-6.9L5.1 22H2l7.8-8.9L1.7 2h6.9l4.8 6.3L18.9 2Zm-1.2 18h1.9L7.4 3.9H5.4L17.7 20Z"/></svg>X</a>
+      <a class="sbtn" id="shFb" href="#" target="_blank" rel="noopener" aria-label="Share on Facebook">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7A10 10 0 0 0 22 12Z"/></svg>Facebook</a>
+      <a class="sbtn" id="shLi" href="#" target="_blank" rel="noopener" aria-label="Share on LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 1 0 5 8.5a2.5 2.5 0 0 0 0-5ZM3 9h4v12H3V9Zm6 0h3.8v1.6h.1c.5-1 1.8-2 3.7-2 3.9 0 4.6 2.6 4.6 5.9V21h-4v-5.3c0-1.3 0-2.9-1.8-2.9s-2 1.4-2 2.8V21H9V9Z"/></svg>LinkedIn</a>
+      <a class="sbtn" id="shRd" href="#" target="_blank" rel="noopener" aria-label="Share on Reddit">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12a2.1 2.1 0 0 0-3.6-1.5 10.3 10.3 0 0 0-5.4-1.7l.9-4.2 2.9.6a1.5 1.5 0 1 0 .2-1l-3.3-.7c-.2 0-.4.1-.4.3l-1 4.7a10.4 10.4 0 0 0-5.5 1.7A2.1 2.1 0 1 0 4 13.6a4 4 0 0 0-.1.9c0 3 3.6 5.5 8.1 5.5s8.1-2.5 8.1-5.5a4 4 0 0 0-.1-.9A2.1 2.1 0 0 0 22 12ZM8.4 13.5a1.3 1.3 0 1 1 2.6 0 1.3 1.3 0 0 1-2.6 0Zm7.2 3.6c-1 .9-3.2 1-3.6 1s-2.6-.1-3.6-1a.4.4 0 0 1 .5-.5c.8.6 2.4.8 3.1.8s2.3-.2 3.1-.8a.4.4 0 0 1 .5.5Zm-.3-2.3a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6Z"/></svg>Reddit</a>
+      <button class="sbtn sbtn--copy" id="shCopy" type="button" aria-label="Copy link to this page">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg><span id="shCopyLbl">Copy link</span></button>
+    </div>
+
+    <div class="embed">
+      <h3>Embed this study on your site</h3>
+      <p>Paste this snippet where you want the study to appear. It includes a visible credit line linking back to the source.</p>
+      <textarea id="embedCode" readonly spellcheck="false" aria-label="Embed code snippet"></textarea>
+      <div style="margin-top:14px">
+        <button class="sbtn sbtn--copy" id="embedCopy" type="button"><span id="embedCopyLbl">Copy embed code</span></button>
+      </div>
+      <div class="embed__preview">
+        <b>Credit line included in the embed:</b>
+        <div class="embed__credit" style="margin-top:8px">Source: <a href="https://westlaketool.com/capabilities/metal-stamping/">Westlake Tool &amp; Die, an Ohio metal stamping and tool &amp; die manufacturer</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== METHODOLOGY ===================== -->
+<section class="section method" id="method">
+  <div class="wrap">
+    <div class="section__head">
+      <div class="figtag">How we did this</div>
+      <h2 class="section__title">Methods, sources &amp; the honest caveats</h2>
+    </div>
+
+    <div class="method__cols">
+      <div>
+        <h3>What we counted</h3>
+        <p>We looked at "tool and die makers," the skilled workers who build the dies, molds, jigs, and fixtures that factories use to shape metal and plastic parts. The worker counts and wages come from the U.S. Bureau of Labor Statistics. The shop counts (the number of tool, die, and mold businesses) come from the Census Bureau. Worker ages come from a separate Census survey of individual workers.</p>
+
+        <h3>How we measured the decade change</h3>
+        <p>We compared the government's 2014 estimate of workers to its 2024 estimate for the country and for each state. These are point-in-time estimates, not an official change statistic, so treat the decade figures as a strong signal of direction rather than an exact count.</p>
+
+        <h3>How we estimated retirements</h3>
+        <p>Nationally, about 55% of tool &amp; die makers are 55 or older. To estimate how many might retire this decade in each state, we applied that national share to each state's current workforce. This assumes every state has a similar age mix, which is a reasonable national-structure estimate, not a measured state-by-state age count.</p>
+
+        <h3>What "concentration" means</h3>
+        <p>The concentration figure shows how common the trade is in a state compared with the national average. A value of 1.0 is exactly average. A value of 3.0 means the trade is three times as concentrated there. It is a way to see where tool &amp; die work is a bigger part of the local economy.</p>
+
+        <h3>Caveats worth stating plainly</h3>
+        <ul>
+          <li>The "likely to retire" figures apply a national age pattern to each state, so they are estimates, not head counts.</li>
+          <li>The 2014-versus-2024 comparison uses point-in-time estimates and is not an official change measure.</li>
+          <li>Census shop and worker-age counts are from 2023 and are lightly adjusted to protect individual privacy.</li>
+          <li>Some smaller states are not published and appear as "not reported."</li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="srcbox">
+          <h4>Sources</h4>
+          <ul>
+            <li><a href="https://www.bls.gov/oes/current/oes514111.htm">BLS Occupational Employment &amp; Wage Statistics</a><span>Worker counts and wages for tool and die makers, by state.</span></li>
+            <li><a href="https://www.census.gov/programs-surveys/cbp.html">Census County Business Patterns</a><span>Number of tool, die, and mold shops (2023).</span></li>
+            <li><a href="https://www.census.gov/programs-surveys/acs/microdata.html">Census ACS Public Use Microdata (PUMS)</a><span>Worker ages, including the under-35 share (2023).</span></li>
+            <li><a href="https://reshorenow.org/">Reshoring Initiative</a><span>Reshoring and foreign-investment job announcements.</span></li>
+          </ul>
+        </div>
+        <div class="srcbox" style="margin-top:20px">
+          <h4>At a glance</h4>
+          <ul>
+            <li id="mStates"></li>
+            <li id="mOccupation"></li>
+            <li id="mYears"></li>
+            <li id="mAge"></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>A data brief from <a href="https://westlaketool.com/capabilities/metal-stamping/">Westlake Tool &amp; Die</a>, an Ohio metal stamping and tool &amp; die manufacturer based in Avon, Ohio.</div>
+    <div class="readout" style="color:#6b7683">Figures free to cite with credit.</div>
+  </div>
+</footer>
+
+<div class="tt" id="tt" role="status" aria-live="polite"></div>
+
+<script src="data.js"></script>
+<script>
+(function(){
+  "use strict";
+  var D = window.TOOLDIE_DATA;
+  if(!D){document.body.insertAdjacentHTML("afterbegin","<p style='padding:20px;color:#b00'>Data failed to load (data.js).</p>");return;}
+  var N = D.national;
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+
+  /* ---------- helpers ---------- */
+  function fmt(n){ if(n===null||n===undefined) return "-"; return Math.round(n).toLocaleString("en-US"); }
+  function signPct(n){ if(n===null||n===undefined) return "-"; var s=(n>0?"+":"")+ (Math.round(n*10)/10); return s+"%"; }
+  function abbrK(n){ // compact for big strip numbers
+    if(n>=1000) return fmt(n);
+    return fmt(n);
+  }
+  var byAbbr={}; D.states.forEach(function(s){ byAbbr[s.abbr]=s; });
+  var OH = byAbbr["OH"];
+
+  /* ---------- count up ---------- */
+  function countUp(el, target, opts){
+    opts=opts||{};
+    var dec = opts.dec||0, dur = opts.dur||1200, suffix=opts.suffix||"", fmtFn=opts.fmt;
+    if(reduce){ el.textContent = fmtFn?fmtFn(target):(target.toFixed(dec)+suffix); return; }
+    var start=null;
+    function step(ts){
+      if(!start) start=ts;
+      var p=Math.min((ts-start)/dur,1);
+      var eased=1-Math.pow(1-p,3);
+      var val=target*eased;
+      el.textContent = fmtFn?fmtFn(val):(val.toFixed(dec)+suffix);
+      if(p<1) requestAnimationFrame(step);
+      else el.textContent = fmtFn?fmtFn(target):(target.toFixed(dec)+suffix);
+    }
+    requestAnimationFrame(step);
+  }
+
+  /* ---------- hero ---------- */
+  var leadPct = Math.abs(N.change_pct);
+  countUp(document.getElementById("leadNum"), leadPct, {dec:1});
+  document.getElementById("leadYears").textContent = "2014 to 2024";
+  document.getElementById("g2014").textContent = fmt(N.workers_2014)+" in 2014";
+  document.getElementById("g2024").textContent = fmt(N.workers_2024)+" in 2024";
+  var remainPct = (N.workers_2024/N.workers_2014)*100;
+  document.getElementById("gIn").textContent = fmt(N.workers_2024)+" remain";
+  document.getElementById("gLost").textContent = fmt(Math.abs(N.change_abs))+" lost";
+  // fill after paint / on view
+  var gFill=document.getElementById("gFill");
+  function setFill(){ gFill.style.width = remainPct.toFixed(1)+"%"; }
+  if(reduce) setFill(); else setTimeout(setFill,180);
+
+  /* ---------- strip ---------- */
+  countUp(document.getElementById("sWorkers"), N.workers_2024, {fmt:fmt});
+  countUp(document.getElementById("sLost"), Math.abs(N.change_abs), {fmt:function(v){return "-"+fmt(v);}});
+  countUp(document.getElementById("sRetire"), N.est_retire, {fmt:function(v){return "~"+fmt(v);}});
+  document.getElementById("sRetireShare").textContent = N.retire_share_pct+"%";
+  countUp(document.getElementById("sReshore"), N.reshoring_jobs_2024, {fmt:fmt});
+
+  /* ---------- Ohio angle copy ---------- */
+  document.getElementById("ohTitle").textContent =
+    "#"+OH.rank+" in the country, and hit harder than any other big state";
+  document.getElementById("ohLede").innerHTML =
+    "Ohio ranks <b>#"+OH.rank+"</b> in the nation for tool &amp; die makers, behind only Michigan. But it lost about <b>"+
+    Math.abs(OH.change_pct).toFixed(1)+"%</b> of them in a decade, roughly <b>"+fmt(Math.round(Math.abs(OH.change_abs)/10)*10)+
+    " workers</b>, the steepest fall of any large tool &amp; die state. Today about <b>"+fmt(OH.workers_2024)+
+    "</b> remain across roughly <b>"+fmt(OH.establishments)+" shops</b>, with an estimated <b>"+fmt(OH.est_retire)+
+    "</b> likely to retire this decade.";
+
+  /* ---------- choropleth ---------- */
+  // grid layout (row,col) 1-indexed, geographically arranged
+  var GRID = {
+    AK:[1,1], ME:[1,11],
+    VT:[2,10], NH:[2,11],
+    WA:[3,1], ID:[3,2], MT:[3,3], ND:[3,4], MN:[3,5], WI:[3,6], MI:[3,8], NY:[3,9], MA:[3,10], RI:[3,11],
+    OR:[4,1], NV:[4,2], WY:[4,3], SD:[4,4], IA:[4,5], IL:[4,6], IN:[4,7], OH:[4,8], PA:[4,9], NJ:[4,10], CT:[4,11],
+    CA:[5,1], UT:[5,2], CO:[5,3], NE:[5,4], MO:[5,5], KY:[5,6], WV:[5,7], VA:[5,8], MD:[5,9], DE:[5,10],
+    AZ:[6,2], NM:[6,3], KS:[6,4], AR:[6,5], TN:[6,6], NC:[6,7], SC:[6,8],
+    OK:[7,4], LA:[7,5], MS:[7,6], AL:[7,7], GA:[7,8],
+    HI:[8,1], TX:[8,4], FL:[8,9]
+  };
+  var RAMP=[
+    {max:250,   c:"var(--c1)", dark:false, label:"under 250"},
+    {max:750,   c:"var(--c2)", dark:false, label:"250 - 749"},
+    {max:1500,  c:"var(--c3)", dark:true,  label:"750 - 1,499"},
+    {max:3500,  c:"var(--c4)", dark:true,  label:"1,500 - 3,499"},
+    {max:1e9,   c:"var(--c5)", dark:true,  label:"3,500 and up"}
+  ];
+  function bucket(w){ for(var i=0;i<RAMP.length;i++){ if(w<RAMP[i].max) return RAMP[i]; } return RAMP[RAMP.length-1]; }
+
+  // legend
+  var lr=document.getElementById("legendRows"), lh="";
+  RAMP.forEach(function(b){ lh += '<div class="legend__row"><span class="legend__sw" style="background:'+b.c+'"></span><span>'+b.label+'</span></div>'; });
+  lr.innerHTML=lh;
+
+  // tiles
+  var grid=document.getElementById("mapGrid");
+  var frag=document.createDocumentFragment();
+  Object.keys(GRID).forEach(function(ab){
+    var pos=GRID[ab], s=byAbbr[ab];
+    var has = s && s.workers_2024!==null && s.workers_2024!==undefined;
+    var t=document.createElement(has?"button":"div");
+    t.className="tile"+(ab==="OH"?" oh":"");
+    t.style.gridColumn=pos[1]; t.style.gridRow=pos[0];
+    t.textContent=ab;
+    t.setAttribute("data-abbr",ab);
+    if(has){
+      var b=bucket(s.workers_2024);
+      t.style.background=b.c;
+      t.setAttribute("data-has","1");
+      if(b.dark) t.setAttribute("data-dark","1");
+      t.setAttribute("type","button");
+      t.setAttribute("aria-label", s.state+": "+fmt(s.workers_2024)+" tool and die makers in 2024, decade change "+signPct(s.change_pct)+", about "+fmt(s.est_retire)+" likely to retire, "+fmt(s.establishments)+" shops.");
+    } else {
+      t.setAttribute("data-nr","1");
+      var known = s ? s.state : {AK:"Alaska",HI:"Hawaii",DE:"Delaware",NM:"New Mexico",WY:"Wyoming",MT:"Montana"}[ab];
+      t.setAttribute("data-name", known||ab);
+      t.setAttribute("aria-label", (known||ab)+": not reported.");
+      t.setAttribute("tabindex","0");
+      t.setAttribute("role","img");
+    }
+    frag.appendChild(t);
+  });
+  grid.appendChild(frag);
+
+  // tooltip
+  var tt=document.getElementById("tt");
+  function ttHTML(s){
+    return '<div class="tt__name">'+s.state+'</div>'+
+      '<div class="tt__rank">Rank #'+s.rank+' by workers</div>'+
+      '<div class="tt__row"><span class="tt__k">Workers (2024)</span><span class="tt__v">'+fmt(s.workers_2024)+'</span></div>'+
+      '<div class="tt__row"><span class="tt__k">Concentration</span><span class="tt__v">'+(s.lq!=null?s.lq.toFixed(2):"-")+'</span></div>'+
+      '<div class="tt__row"><span class="tt__k">Decade change</span><span class="tt__v '+(s.change_pct>0?"pos":"neg")+'">'+signPct(s.change_pct)+'</span></div>'+
+      '<div class="tt__row"><span class="tt__k">Likely to retire</span><span class="tt__v">'+fmt(s.est_retire)+'</span></div>'+
+      '<div class="tt__row"><span class="tt__k">Shops</span><span class="tt__v">'+fmt(s.establishments)+'</span></div>';
+  }
+  function nrHTML(name){
+    return '<div class="tt__name">'+name+'</div><div class="tt__rank">Not reported</div>'+
+      '<div class="tt__row"><span class="tt__k">Workers (2024)</span><span class="tt__v">not reported</span></div>';
+  }
+  function showTT(el,evt){
+    var ab=el.getAttribute("data-abbr"), s=byAbbr[ab];
+    if(s && s.workers_2024!=null) tt.innerHTML=ttHTML(s);
+    else tt.innerHTML=nrHTML(el.getAttribute("data-name")||ab);
+    tt.classList.add("on");
+    positionTT(evt,el);
+  }
+  function positionTT(evt,el){
+    var x,y;
+    if(evt && evt.clientX!=null){ x=evt.clientX; y=evt.clientY; }
+    else { var r=el.getBoundingClientRect(); x=r.left+r.width/2; y=r.top; }
+    var tw=tt.offsetWidth, th=tt.offsetHeight;
+    var left=x+16, top=y+16;
+    if(left+tw>window.innerWidth-10) left=x-tw-16;
+    if(left<10) left=10;
+    if(top+th>window.innerHeight-10) top=y-th-16;
+    if(top<10) top=10;
+    tt.style.left=left+"px"; tt.style.top=top+"px";
+  }
+  function hideTT(){ tt.classList.remove("on"); }
+  grid.addEventListener("mouseover",function(e){ var t=e.target.closest(".tile"); if(t) showTT(t,e); });
+  grid.addEventListener("mousemove",function(e){ var t=e.target.closest(".tile"); if(t && tt.classList.contains("on")) positionTT(e,t); });
+  grid.addEventListener("mouseout",function(e){ if(e.target.closest(".tile")) hideTT(); });
+  grid.addEventListener("focusin",function(e){ var t=e.target.closest(".tile"); if(t) showTT(t,null); });
+  grid.addEventListener("focusout",hideTT);
+  window.addEventListener("scroll",hideTT,{passive:true});
+
+  /* ---------- leaderboard ---------- */
+  var body=document.getElementById("lbBody");
+  var rows=D.states.slice();
+  var sortKey="rank", sortDir=1; // 1 asc
+
+  function renderRows(){
+    var html="";
+    rows.forEach(function(s){
+      var isOH = s.abbr==="OH";
+      var chgClass = s.change_pct==null?"":(s.change_pct>0?"pos":"neg");
+      html += '<tr class="'+(isOH?"oh":"")+'">'+
+        '<td class="rk readout">'+s.rank+'</td>'+
+        '<td class="st">'+s.state+(isOH?' &#9733;':'')+'</td>'+
+        '<td>'+(s.workers_2024!=null?fmt(s.workers_2024):'<span class="nrtxt">not reported</span>')+'</td>'+
+        '<td>'+(s.lq!=null?s.lq.toFixed(2):'<span class="nrtxt">-</span>')+'</td>'+
+        '<td class="'+chgClass+'">'+(s.change_pct!=null?signPct(s.change_pct):'<span class="nrtxt">-</span>')+'</td>'+
+        '<td>'+(s.est_retire!=null?fmt(s.est_retire):'<span class="nrtxt">-</span>')+'</td>'+
+        '<td>'+(s.establishments!=null?fmt(s.establishments):'<span class="nrtxt">-</span>')+'</td>'+
+        '</tr>';
+    });
+    body.innerHTML=html;
+  }
+  function sortRows(){
+    var th=document.querySelectorAll("#lbTable thead th");
+    rows.sort(function(a,b){
+      var av=a[sortKey], bv=b[sortKey];
+      // nulls always sort to bottom
+      if(av==null && bv==null) return 0;
+      if(av==null) return 1;
+      if(bv==null) return -1;
+      if(typeof av==="string") return av<bv?-1*sortDir:av>bv?1*sortDir:0;
+      return (av-bv)*sortDir;
+    });
+    th.forEach(function(h){
+      if(h.getAttribute("data-key")===sortKey) h.setAttribute("aria-sort", sortDir===1?"ascending":"descending");
+      else h.removeAttribute("aria-sort");
+    });
+    renderRows();
+  }
+  document.querySelectorAll("#lbTable thead th").forEach(function(h){
+    h.addEventListener("click",function(){
+      var k=h.getAttribute("data-key");
+      if(k===sortKey){ sortDir*=-1; }
+      else { sortKey=k; sortDir=(k==="state")?1:( (k==="rank")?1:-1 ); } // default: rank asc, others desc, state A-Z
+      sortRows();
+    });
+  });
+  sortRows();
+
+  /* ---------- myth ---------- */
+  countUp(document.getElementById("mythReal"), N.under35_pct, {dec:0});
+  document.getElementById("mythMean").textContent = N.mean_age;
+  document.getElementById("mythOlder").textContent = N.pct_45plus+"%";
+
+  /* ---------- reshoring flow ---------- */
+  countUp(document.getElementById("fReshore"), N.reshoring_jobs_2024, {fmt:fmt});
+  countUp(document.getElementById("fOpenings"), N.mfg_openings, {fmt:function(v){return "~"+fmt(v);}});
+  countUp(document.getElementById("fRetire"), N.est_retire, {fmt:function(v){return "~"+fmt(v);}});
+
+  /* ---------- methodology at-a-glance ---------- */
+  document.getElementById("mStates").innerHTML = "<b>"+N.states_reporting+" states</b> with reported figures";
+  document.getElementById("mOccupation").innerHTML = "Occupation: <b>"+D.meta.occupation+"</b>";
+  document.getElementById("mYears").innerHTML = "Worker counts: <b>"+D.meta.oews_year_prior+" vs "+D.meta.oews_year+"</b>";
+  document.getElementById("mAge").innerHTML = "Ages &amp; shops: <b>"+D.meta.age_source+"; shops "+D.meta.cbp_year+"</b>";
+
+  /* ---------- share + embed ---------- */
+  var pageUrl = location.href.split("#")[0];
+  var shareTitle = "Reshoring's Missing Piece: America's Vanishing Tool & Die Makers";
+  var shareText = "The U.S. has lost more than 1 in 4 tool & die makers in a decade. Ohio, #"+OH.rank+" in the country, was hit hardest of any large state.";
+  var eU=encodeURIComponent(pageUrl), eT=encodeURIComponent(shareTitle), eTx=encodeURIComponent(shareText);
+  document.getElementById("shX").href = "https://twitter.com/intent/tweet?text="+eTx+"&url="+eU;
+  document.getElementById("shFb").href = "https://www.facebook.com/sharer/sharer.php?u="+eU;
+  document.getElementById("shLi").href = "https://www.linkedin.com/sharing/share-offsite/?url="+eU;
+  document.getElementById("shRd").href = "https://www.reddit.com/submit?url="+eU+"&title="+eT;
+
+  function flashCopy(btn,lblEl,base){
+    btn.classList.add("copied"); lblEl.textContent="Copied";
+    setTimeout(function(){ btn.classList.remove("copied"); lblEl.textContent=base; },1600);
+  }
+  function copyText(txt,cb){
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(cb,function(){legacyCopy(txt);cb();});
+    } else { legacyCopy(txt); cb(); }
+  }
+  function legacyCopy(txt){
+    var ta=document.createElement("textarea"); ta.value=txt; ta.style.position="fixed"; ta.style.opacity="0";
+    document.body.appendChild(ta); ta.select();
+    try{document.execCommand("copy");}catch(e){}
+    document.body.removeChild(ta);
+  }
+  document.getElementById("shCopy").addEventListener("click",function(){
+    var b=this,l=document.getElementById("shCopyLbl");
+    copyText(pageUrl,function(){ flashCopy(b,l,"Copy link"); });
+  });
+
+  // embed snippet (dofollow credit anchor, visible)
+  var embed =
+'<div style="max-width:680px;margin:0 auto;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.5;color:#333">\n'+
+'  <iframe src="'+pageUrl+'" title="'+shareTitle+'" width="100%" height="640" loading="lazy" style="border:1px solid #cfcfcf;width:100%;"></iframe>\n'+
+'  <p style="margin:10px 0 0;font-size:13px;color:#333">Source: <a href="https://westlaketool.com/capabilities/metal-stamping/">Westlake Tool &amp; Die, an Ohio metal stamping and tool &amp; die manufacturer</a></p>\n'+
+'</div>';
+  document.getElementById("embedCode").value = embed;
+  document.getElementById("embedCopy").addEventListener("click",function(){
+    var b=this,l=document.getElementById("embedCopyLbl");
+    copyText(embed,function(){ flashCopy(b,l,"Copy embed code"); });
+  });
+
+  /* ---------- scroll reveal for bars (progressive enhancement) ---------- */
+  if(!reduce && "IntersectionObserver" in window){
+    var io=new IntersectionObserver(function(ents){
+      ents.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
+    },{threshold:.25});
+    // (reserved for future animated elements; bars already animate on load)
+  }
+})();
+</script>
+</body>
+</html>
