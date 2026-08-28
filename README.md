@@ -14,6 +14,9 @@ Two open issues at the time of this deploy:
 2. The Ohio headline reads -42.4% (BLS, occupation). Census (industry) shows -11.4% for the
    same period. Same direction, four times apart.
 
+**Publication confidence: FRAGILE.** See the top of the reviewer worksheet.
+   same period. Same direction, four times apart.
+
 The outreach packet is deliberately not included here: it contains reporter contact details.
 The raw source files (`data-sources/`) are also not included, so the worksheet's terminal
 checks require the full folder from the client directory.
