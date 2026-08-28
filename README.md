@@ -14,7 +14,8 @@ Two open issues at the time of this deploy:
 2. The Ohio headline reads -42.4% (BLS, occupation). Census (industry) shows -11.4% for the
    same period. Same direction, four times apart.
 
-**Verdict: FIX FIRST.** Four fixes, about a day. See the top of the reviewer worksheet.
+**Recommendation: DO NOT PROCEED.** The Ohio headline does not survive a second
+government dataset. Not for outreach. See the reviewer worksheet.
    same period. Same direction, four times apart.
 
 The outreach packet is deliberately not included here: it contains reporter contact details.
