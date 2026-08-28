@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Audit package: Reshoring&#x27;s Missing Piece: America&#x27;s Vanishing Tool &amp; Die Makers</title>
+<style>
+:root {
+  --bg: #ffffff; --fg: #17212b; --muted: #5b6b7c; --line: #e2e8ef;
+  --card: #f7f9fb; --accent: #0d7f9e; --accent-soft: #e6f4f8;
+  --pass: #17795e; --fail: #b3261e; --warn: #8a6100;
+  --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg:#12171d; --fg:#e6edf3; --muted:#93a3b3; --line:#28323d;
+          --card:#1a2027; --accent:#4cc3e0; --accent-soft:#152a31;
+          --pass:#4ec59b; --fail:#ef8078; --warn:#d6a441; }
+}
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+.wrap { max-width: 860px; margin: 0 auto; padding: 32px 20px 120px; }
+h1 { font-size: 30px; line-height:1.25; margin: 0 0 6px; letter-spacing:-0.01em; }
+h2 { font-size: 21px; margin: 44px 0 14px; padding-bottom:8px; border-bottom:2px solid var(--line); }
+h3 { font-size: 16px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin: 34px 0 12px; }
+p { margin: 0 0 12px; }
+a { color: var(--accent); }
+.sub { color: var(--muted); margin-bottom: 22px; font-size:14.5px; }
+.sub b { color: var(--fg); font-weight:600; }
+.banner { background: var(--accent-soft); border-left: 4px solid var(--accent); padding: 14px 16px; border-radius: 0 6px 6px 0; margin: 0 0 26px; font-size:15px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 16px 18px; margin: 0 0 14px; }
+.kv { display:grid; grid-template-columns: max-content 1fr; gap: 4px 16px; font-size: 15px; }
+.kv dt { color: var(--muted); }
+.kv dd { margin: 0; }
+.big { font-size: 30px; font-weight: 650; letter-spacing:-0.01em; }
+code, .mono { font-family: var(--mono); font-size: 13.5px; }
+pre { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 12px 14px; overflow-x: auto; font-family: var(--mono); font-size: 13px; margin: 8px 0; }
+table { border-collapse: collapse; width: 100%; font-size: 14.5px; margin: 8px 0 4px; }
+th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--line); }
+th { color: var(--muted); font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing:.05em; }
+.scroll { overflow-x: auto; }
+.tabs { display: flex; gap: 8px; flex-wrap: wrap; margin: 18px 0 22px; position:sticky; top:0; background:var(--bg); padding:10px 0; z-index:5; border-bottom:1px solid var(--line); }
+.tab { border: 1px solid var(--line); background: transparent; color: var(--fg); border-radius: 999px; padding: 6px 14px; font: inherit; font-size: 14px; cursor: pointer; }
+.tab[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+.progress { font-size: 14px; color: var(--muted); margin-left: auto; align-self: center; }
+.check { border: 1px solid var(--line); border-radius: 8px; padding: 16px 18px; margin: 0 0 14px; }
+.check[data-state="pass"] { border-left: 5px solid var(--pass); }
+.check[data-state="fail"] { border-left: 5px solid var(--fail); }
+.check[data-state="na"]   { border-left: 5px solid var(--muted); }
+.check-head { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; margin-bottom: 10px; }
+.cid { font-family: var(--mono); font-weight: 700; color: var(--accent); }
+.ctitle { font-weight: 640; font-size: 17px; flex: 1 1 240px; }
+.chip { font-size: 11.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 2px 9px; white-space: nowrap; }
+.field { margin: 10px 0; font-size: 15px; }
+.field b { display:block; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 2px; font-weight:600; }
+.field.pass b { color: var(--pass); }
+.field.fail b { color: var(--fail); }
+.links { margin: 8px 0; padding-left: 18px; }
+.links li { margin-bottom: 3px; }
+.verdict { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--line); align-items:center; }
+.vbtn { border: 1px solid var(--line); background: transparent; color: var(--fg); border-radius: 6px; padding: 5px 14px; font: inherit; font-size: 14px; cursor: pointer; }
+.vbtn[aria-pressed="true"][data-v="pass"] { background: var(--pass); border-color: var(--pass); color: #fff; }
+.vbtn[aria-pressed="true"][data-v="fail"] { background: var(--fail); border-color: var(--fail); color: #fff; }
+.vbtn[aria-pressed="true"][data-v="na"] { background: var(--muted); border-color: var(--muted); color: #fff; }
+textarea, input[type=text] { width: 100%; font: inherit; font-size: 14.5px; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; margin-top: 8px; }
+textarea { min-height: 58px; resize: vertical; }
+.copy { border:1px solid var(--line); background:transparent; color:var(--muted); border-radius:5px; padding:3px 9px; font:inherit; font-size:12px; cursor:pointer; margin-bottom:4px; }
+.hidden { display: none !important; }
+.signoff input[type=text] { max-width: 340px; }
+.actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
+.primary { background: var(--accent); border-color: var(--accent); color:#fff; font-size:15px; padding:9px 18px; }
+.risk b { display:block; margin-bottom:2px; }
+.risk p { font-size:14.5px; color:var(--muted); margin:0; }
+footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script type="application/json" id="doc">{"auto_source_checks": true, "asset": {"title": "Reshoring's Missing Piece: America's Vanishing Tool & Die Makers", "client": "Westlake Tool & Die (Avon, Ohio)", "slug": "reshoring-tool-die-makers", "page": "../index.html", "built": "2026-07-01", "money_page": "https://westlaketool.com/capabilities/metal-stamping/", "one_paragraph": "The study says America is trying to bring factory work home at the same time as the trade that makes factory work possible is disappearing. It counts tool and die makers, the skilled workers who build the dies and molds that shape metal parts, and finds the national workforce fell from 75,950 in 2014 to 55,130 in 2024, a drop of about 27 percent. It then ranks every state that reports the trade, and shows that Ohio, second-largest in the country, lost a larger share of its tool and die workforce over that decade than any other big state, about 42 percent. On top of that it estimates that roughly 55 percent of the people left are 55 or older, so a large share of what remains is close to retiring. The argument the piece makes is that this shrinking, aging trade is the bottleneck for reshoring, not a shortage of factories or of money.", "load_bearing_number": {"label": "The decade decline in tool and die makers nationally", "value": "-27.4% (75,950 in 2014 to 55,130 in 2024)", "field": "findings.json -> national.change_pct", "source": "BLS Occupational Employment and Wage Statistics, May 2014 and May 2024 national files, occupation code 51-4111. Both figures are re-derived from the frozen files by the build and asserted to match, so if either raw file is ever swapped the build fails rather than publishing a stale number. If this comparison is not legitimate, every headline in the piece falls with it."}}, "how_this_could_be_wrong": [{"risk": "BLS says plainly that this survey is not meant to be compared across years. Its own FAQ (item F.1) says it does not encourage using these figures for change over time, because the survey method, the collection, and the occupation coding have all changed. Our entire headline is a comparison across ten years of exactly that survey.", "why_we_think_it_holds": "The method section already says these are point-in-time estimates and not an official change statistic, and tells the reader to treat the decade figures as direction rather than an exact count. The size of the move also helps: a 27 percent national fall is far larger than survey noise, and it points the same way as the shop counts and the age profile. But this is a judgment, not a fact, and it is the first thing a labor economist or a careful reporter will raise.", "check": "C1"}, {"risk": "The study uses the May 2024 data, but BLS published May 2025 on 15 May 2026, six weeks before this piece was built. Anyone who clicks our own BLS source link today lands on May 2025 figures, which will not be the numbers on our page.", "why_we_think_it_holds": "We do not think it holds. This is the one we would most expect to get caught on, and we could not test it ourselves because BLS blocks automated access. It needs a human with a browser before this goes anywhere.", "check": "B5"}, {"risk": "Ohio's 42 percent decline is the sharpest of any large state, and Ohio is the client's own state. That is a convenient result for us. It could also be a coding or reclassification artifact rather than a real collapse, in which case the most quotable line in the piece is wrong.", "why_we_think_it_holds": "Ohio's fall shows up on both ends of the comparison and is large enough that a small reclassification would not produce it. Neighboring manufacturing states move the same direction, which is what a real regional decline looks like. But we did not inspect a year-by-year series for Ohio, because OEWS does not publish one cleanly, so we cannot rule out a step change in a single year.", "check": "C2"}, {"risk": "Every retirement figure in the piece, including the roughly 30,000 nationally and the roughly 3,000 for Ohio, comes from applying one national share (55 percent aged 55 or older) to each state. That share has no frozen source file in the folder, so the build cannot reproduce it, and the state-level split assumes every state has the same age mix.", "why_we_think_it_holds": "The page labels these as estimates and states the assumption in plain words in the method section. The direction is not in doubt, since the trade is unambiguously old. But the specific numbers rest on a figure nobody can currently re-derive from what is in the folder, and they are quoted as though they were counted.", "check": "C3"}], "checks": [{"id": "A1", "section": "Sources are real", "lane": "browser", "minutes": 8, "title": "The 7 source files are live, and they are the files we used", "where": "The table below, taken straight from findings.json. Every one of these was recorded as loading successfully on 2026-07-01 (Census re-verified 2026-08-25; BLS blocks scripts, see A3).", "do": "Open every file marked Primary, plus one other at random. Confirm each one downloads or displays a real data file, not a portal front page, a search screen, or a login. Then compare the file's own description of itself to how the study describes it: same geography, same years, same units, same definition of what is being counted. Last, check that the fingerprints shown on the published page match the ones in this table.", "pass": "Every file you opened is a real data file, it covers what the study says it covers, and the fingerprints on the page match this table.", "fail": "Any link is dead, needs a login, or lands on a front page. Or the file covers a different area, a different time period, or counts something other than what the study says. Or a fingerprint on the page does not match.", "table": {"columns": ["File", "What it was used for", "Fingerprint"], "rows": [[{"text": "BLS OEWS May 2024, state file (oesm24st.zip)", "url": "https://www.bls.gov/oes/special-requests/oesm24st.zip"}, "Primary. Workers, concentration and wages per state, SOC 51-4111.", "904b7d452be9"], [{"text": "BLS OEWS May 2014, state file (oesm14st.zip)", "url": "https://www.bls.gov/oes/special-requests/oesm14st.zip"}, "Primary. The 2014 half of every decade-change figure.", "bde46b6940ea"], [{"text": "BLS OEWS May 2024, national file (oesm24nat.zip)", "url": "https://www.bls.gov/oes/special-requests/oesm24nat.zip"}, "Primary. The 55,130 national worker count in the hero and gauge.", "a9bad3093703"], [{"text": "BLS OEWS May 2014, national file (oesm14nat.zip)", "url": "https://www.bls.gov/oes/special-requests/oesm14nat.zip"}, "Primary. The 75,950 baseline the 27.4% drop is measured from.", "b316e2bde932"], [{"text": "Census County Business Patterns 2023, state file (cbp23st.zip)", "url": "https://www2.census.gov/programs-surveys/cbp/datasets/2023/cbp23st.zip"}, "Primary. Shop counts per state, NAICS 333514. Re-downloaded 2026-08-25, fingerprint unchanged.", "41a4c6161fb9"], [{"text": "Census County Business Patterns 2023, national file (cbp23us.zip)", "url": "https://www2.census.gov/programs-surveys/cbp/datasets/2023/cbp23us.zip"}, "Supporting. The 1,976 national shop count.", "1d8dbbfa608a"], [{"text": "Tool & die shops per state, extracted from CBP 2023 (derived)", "url": "https://www2.census.gov/programs-surveys/cbp/datasets/2023/cbp23st.zip"}, "Derived from the frozen CBP state file above. The build re-derives it from the raw file and asserts the totals match.", "f4bade38f167"]]}}, {"id": "A3", "section": "Sources are real", "lane": "browser", "minutes": 4, "title": "The links we could not load, one manual click each", "where": "The table below. These are pages a data brief would normally cite, but automated access was blocked, so we did not publish them. We do not link to anything we did not personally load.", "do": "Open each one in your own browser. They very likely work for a human. If a link loads and says what the last column claims, say so in your note and it gets added to the method section.", "pass": "You have recorded, for each link, whether it loaded for you and whether it says what we expect.", "fail": "A link loads but does not say what we expected it to say.", "table": {"columns": ["Link", "What blocked us", "What it would add"], "rows": [[{"text": "https://www.bls.gov/oes/current/oes514111.htm", "url": "https://www.bls.gov/oes/current/oes514111.htm"}, "BLS blocks automated requests. Returns an \"Access Denied\" bot page to any script, so we could not re-load it on 2026-08-25.", "The current national figure for tool and die makers. IMPORTANT: this URL now serves May 2025, not the May 2024 vintage this study used."], [{"text": "https://www.bls.gov/oes/special-requests/oesm25st.zip", "url": "https://www.bls.gov/oes/special-requests/oesm25st.zip"}, "Same BLS bot block.", "The May 2025 state file, released 2026-05-15, which is one vintage newer than the May 2024 file this study was built on."], [{"text": "https://www.bls.gov/oes/oes_ques.htm", "url": "https://www.bls.gov/oes/oes_ques.htm"}, "Same BLS bot block.", "BLS FAQ item F.1, which says BLS does not encourage using OEWS for comparisons over time. This is the caveat the method section answers."]]}}, {"id": "B1", "section": "Numbers on the page", "lane": "browser", "minutes": 15, "title": "Five ranked rows, checked against the government's own state file", "where": "The leaderboard table on the page, and the BLS state file listed in the sources above. The five rows below are fixed: they include the client's own state, the top of the ranking, the one state that grew, and a row that carries a caveat.", "do": "Open the BLS May 2024 state file (or the state pages on bls.gov) and look up occupation code 51-4111 for each of these five states. Compare the worker count to what our page shows. Then do the same for the 2014 file and confirm the decade change follows from the two numbers.", "pass": "All five worker counts match the government file exactly, and each decade change is what those two numbers give you.", "fail": "Any count differs, or a decade change does not follow from the two figures, or a state appears in our table that the government file does not publish.", "note": "Idaho is in the sample on purpose: it has workers but no published shop count, so its shops cell should read as not reported rather than as a number or a zero. Kentucky is in the sample because it is the only state in the piece that grew.", "table": {"columns": ["State", "Rank", "Workers 2024", "Workers 2014", "Decade change", "Shops"], "rows": [["Ohio", "#2", "5460", "9480", "-42.4%", "197"], ["Michigan", "#1", "9190", "11750", "-21.8%", "400"], ["Kentucky", "#8", "2100", "1740", "20.7%", "29"], ["Pennsylvania", "#6", "2910", "4250", "-31.5%", "121"], ["Idaho", "#41", "40", "50", "-20.0%", "not reported"]]}}, {"id": "B2", "section": "Numbers on the page", "lane": "terminal", "minutes": 5, "title": "The analysis rebuilds to the identical file twice", "where": "The asset folder.", "do": "Run the command below from the asset folder. It saves the current output, rebuilds twice, and diffs.", "command": "cp findings.json /tmp/f_a.json && python3 data-sources/compute.py >/dev/null && cp findings.json /tmp/f_b.json && python3 data-sources/compute.py >/dev/null && diff /tmp/f_a.json findings.json && diff /tmp/f_b.json findings.json && echo REPRODUCIBLE", "expected": "The word REPRODUCIBLE, with no diff output above it.", "pass": "REPRODUCIBLE prints and nothing else.", "fail": "Any diff lines appear, or the script raises an AssertionError. An AssertionError means a raw source file no longer produces the national figures on the page, which is a stop-everything result.", "note": "Terminal checks need the full local asset folder, including data-sources/, which is not published to the web copy."}, {"id": "B3", "section": "Numbers on the page", "lane": "terminal", "minutes": 3, "title": "The raw files are the same files the study was computed from", "where": "The asset folder.", "do": "Run the checksum verification against the recorded manifest.", "command": "shasum -a 256 -c MANIFEST.sha256", "expected": "Ten lines, every one ending in OK.", "pass": "All ten lines say OK.", "fail": "Any line says FAILED. That means a raw input or a generated output has been altered since the build, and no number on the page can be trusted until it is explained.", "note": "Terminal checks need the full local asset folder, including data-sources/, which is not published to the web copy."}, {"id": "B4", "section": "Numbers on the page", "lane": "terminal", "minutes": 6, "title": "Re-download the Census file and confirm the agency has not revised it", "where": "The asset folder. Census allows automated access, so this one can be tested directly. BLS cannot, which is why it is a browser check instead (see B5).", "do": "Download the Census County Business Patterns 2023 state file again and compare its fingerprint to the frozen copy.", "command": "curl -sL -o /tmp/cbp_fresh.zip https://www2.census.gov/programs-surveys/cbp/datasets/2023/cbp23st.zip && shasum -a 256 /tmp/cbp_fresh.zip | cut -d' ' -f1 && shasum -a 256 data-sources/cbp23st.zip | cut -d' ' -f1", "expected": "Two identical fingerprints, both starting 9fc306ec. They matched when this package was prepared on 2026-08-25.", "pass": "The two fingerprints are identical.", "fail": "They differ. That means Census has revised the 2023 data since we built, and the shop counts need rechecking before publication. It is not automatically an error in our work, but it must be understood rather than ignored.", "note": "Terminal checks need the full local asset folder, including data-sources/, which is not published to the web copy."}, {"id": "B5", "section": "Numbers on the page", "lane": "browser", "minutes": 15, "title": "Is our data the current data? Open BLS in a real browser and find out", "where": "bls.gov, in a browser. This check exists because BLS blocks automated requests, so nobody on the build side has been able to look. Treat it as the most important item in this package.", "do": "Open the BLS page for tool and die makers, linked below. Read which May year the page says it is showing. Our study used May 2024. Public reporting says BLS released May 2025 on 15 May 2026, which is before this asset was built. Write down the current national employment figure for occupation 51-4111 and compare it to our 55,130. Then decide, and say so in your note, whether the piece can honestly publish May 2024 figures while its own source link shows a newer year.", "pass": "Either the page still shows May 2024, in which case the study is on the current vintage and nothing needs to change. Or it shows May 2025 and you have recorded the new figure and made a clear recommendation about what to do.", "fail": "The page shows a newer year than ours and the piece still presents its numbers as the current picture without saying which vintage they are. Publishing that is how a reporter finds a discrepancy before we do.", "links": [{"label": "BLS, tool and die makers, current OEWS", "url": "https://www.bls.gov/oes/current/oes514111.htm"}, {"label": "BLS OEWS release table listing every May year", "url": "https://www.bls.gov/oes/tables.htm"}], "note": "If the answer is that May 2025 is now current, the practical options are to rebuild on the newer file, or to label every figure explicitly as May 2024 and say why. Recommend one. Do not leave it open."}, {"id": "C1", "section": "The story holds", "lane": "judgment", "minutes": 12, "title": "The leap: treating a point-in-time survey as a ten-year trend", "where": "The hero stat, the gauge, and the paragraph headed How we measured the decade change in the method section.", "do": "Read what BLS itself says about comparing these estimates over time, in FAQ item F.1, linked below. Then read our method section. Judge whether our wording is an honest warning or a formality a reader will skim past. The specific question: if a labor economist read only our method section, would they feel we had been straight with them?", "pass": "The caveat is stated in plain words, near the numbers it applies to, and it is strong enough that a reader understands the decade figures are a direction and not a measured change.", "fail": "The caveat is buried at the bottom, or hedged so lightly that the hero stat still reads as an official government change statistic. Also a fail if the piece uses words like fell, lost, or vanished in a way that implies a counted change rather than a difference between two estimates.", "links": [{"label": "BLS OEWS FAQ, see item F.1 on comparisons over time", "url": "https://www.bls.gov/oes/oes_ques.htm"}]}, {"id": "C2", "section": "The story holds", "lane": "judgment", "minutes": 12, "title": "Outlier forensics on Ohio, the number the whole pitch rests on", "where": "The Ohio section of the page, and the Ohio row in the leaderboard. Ohio is published as down about 42.4 percent, from 9,480 to 5,460.", "do": "Ohio's decline is the steepest of any large state, and Ohio is the client's state. Ask whether that is a real regional collapse or an artifact. Two things to weigh. First, do Ohio's neighbours move the same way? Michigan is down about 22 percent, Indiana about 28, Pennsylvania about 32, Illinois about 26. A real decline usually shows up across a region; an artifact usually does not. Second, a single-year step with nothing else moving with it would suggest workers were recoded into a different occupation rather than actually leaving. We could not inspect a year-by-year Ohio series, so this is a judgment call on the evidence available.", "pass": "You are satisfied the Ohio figure is a real decline, or you have identified a specific reason to doubt it and said what should change.", "fail": "Ohio moves sharply while every comparable state stays flat, or you find evidence of an occupational recoding in Ohio between 2014 and 2024. Either would mean the Ohio angle, which is the spine of the outreach plan, has to be softened or dropped.", "note": "This one matters more than its size suggests. Ohio being hardest hit is the hook in most of the Tier 1 pitches, so if it does not survive, the outreach packet changes too."}, {"id": "C3", "section": "The story holds", "lane": "judgment", "minutes": 10, "title": "The leap: one national age share applied to all 44 states", "where": "The retirement figures in the hero strip and the likely-to-retire column in the leaderboard, plus the paragraph headed How we estimated retirements.", "do": "Every retirement number is a state's current workforce multiplied by 0.55, the national share of tool and die makers aged 55 or older. Two things to judge. Is applying one national age share to every state fair, or does it invent state-level precision the data does not support? And separately, note that this 55 percent figure has no source file frozen in the folder, so the build cannot reproduce it. It is listed openly in findings.json under underived_figures. Decide whether a figure nobody can currently re-derive should be carrying a headline number.", "pass": "The estimate is clearly labeled as an estimate everywhere it appears, the assumption is stated near the number rather than only in the method section, and you are comfortable that a reader will not mistake it for a head count.", "fail": "Any retirement figure is presented as a count rather than an estimate, or a state-level figure implies we measured that state's ages when we did not. Also a fail if you conclude the missing PUMS extract has to be produced and frozen before this can be published.", "links": [{"label": "Census ACS Public Use Microdata, the stated source", "url": "https://www.census.gov/programs-surveys/acs/microdata.html"}]}, {"id": "C4", "section": "The story holds", "lane": "judgment", "minutes": 6, "title": "The robustness question: does the story survive a different ranking rule?", "where": "The leaderboard, and the claim that Ohio is second in the nation.", "do": "The ranking is ordered by number of workers in 2024. Try the two obvious alternatives in your head against the table on the page. Rank by concentration instead, and Indiana leads at 3.14 while Michigan is 5.86 and Ohio is 2.76. Rank by shops instead, and the order shifts again. Judge whether the piece is honest that it chose one ordering, or whether it implies its ranking is the only way to see this.", "pass": "The page is clear about what it ranked by, and the claims it makes hold under a reasonable alternative ordering, or it says openly that a different ordering gives a different leader.", "fail": "The headline claim only survives under the one ordering we happened to pick, and the page does not admit that.", "note": "Kentucky is the case worth thinking about here. It is the only state that grew, up about 20.7 percent, and a reader who spots it will ask why the national story is decline. Judge whether the page handles it or hopes nobody notices."}, {"id": "C5", "section": "The story holds", "lane": "judgment", "minutes": 5, "title": "Is the coverage stated everywhere it is claimed?", "where": "The leaderboard and the caveats list in the method section.", "do": "The piece covers 44 states, not 50. Shop counts cover only 41 of those 44, because Idaho, Maine and North Dakota have workers but no published shop count. Separately, New Mexico has published shops but no worker estimate, so it does not appear in the ranking at all. Check that the page never says nationwide or every state in a way that overstates this, and that the missing rows read as not reported rather than as zero.", "pass": "Coverage is stated plainly wherever a total or a nationwide claim appears, and no missing value renders as a zero.", "fail": "The page says every state, or a missing shop count displays as 0, which would make a real shop count look like an absence of shops.", "note": "The exact coverage is recorded in findings.json under coverage, so it can be quoted rather than recounted."}, {"id": "D1", "section": "Angle and framing", "lane": "judgment", "minutes": 8, "title": "Does the framing outrun the data?", "where": "The headline, the opening paragraph, and the section arguing that this trade is the bottleneck for reshoring.", "do": "The piece asserts a causal link: reshoring is constrained by the shrinking tool and die workforce. What the data actually shows is two things happening at once, a declining trade and announced reshoring jobs. Judge whether the page argues the connection or merely places the two facts next to each other and lets the reader assume. Then check the two supporting outside figures, roughly 500,000 unfilled manufacturing jobs and 244,000 reshoring jobs announced in 2024, and ask whether they are doing evidential work or decorative work.", "pass": "The causal claim is either supported or hedged to a claim about timing and pressure rather than proven cause.", "fail": "The page states or strongly implies that the tool and die decline is causing reshoring to stall, without evidence that connects them.", "note": "The 244,000 figure was confirmed on 2026-08-25 as still the most recent annual figure from the Reshoring Initiative; their 2025 report was listed as coming soon. The roughly 500,000 unfilled jobs figure comes from BLS JOLTS, which updates monthly, and is recorded in findings.json as not reproducible from any frozen file."}, {"id": "D2", "section": "Angle and framing", "lane": "judgment", "minutes": 10, "title": "Do the pitch angles claim more than the piece proves?", "where": "outreach-packet.md, the section headed Data spine for hooks, and the per-tier pitch angles.", "do": "Read the hooks the team will actually send and compare each one to what the page can defend. Pay particular attention to the line offered as a scoop: that the widely repeated claim only 2 percent of tool and die makers are under 35 is wrong, and the real figure is about 13 to 15 percent. That correction rests on the same Census microdata that has no frozen file in this folder. Judge whether we should be pitching a correction to someone else's published statistic on the strength of a number we cannot currently reproduce.", "pass": "Every hook is supported by something on the page, and any hook resting on the microdata is either dropped or backed by an extract that gets frozen first.", "fail": "A pitch states as fact something the page hedges, or the under-35 correction goes out to reporters while its source cannot be reproduced. An accurate study can still become an inaccurate pitch, and the pitch is what the reporter quotes.", "links": [], "note": "The outreach packet is deliberately NOT published with this study, because it contains reporter email addresses. Ask for outreach-packet.md directly; it sits in the same client folder as the study."}, {"id": "D3", "section": "Angle and framing", "lane": "browser", "minutes": 8, "title": "Can a reporter check our work from the page alone?", "where": "The published page, end to end.", "do": "Read the page as a reporter on deadline who has been asked to verify one number before quoting it. The method section and a linked source list are present. What is not present is a See for yourself section giving the exact steps to reach our figures in the agency's own tool, the file fingerprints, and a pointer to our most arguable claim. Judge how far a reporter gets with what is there, and whether that gap should be closed before this is pitched. Also confirm the share buttons work and that the embed snippet carries a real, visible, followable credit link to the client rather than only a bare frame.", "pass": "A reporter can reach at least one of our headline numbers from what the page gives them, and the embed carries a genuine credit link.", "fail": "The sources are named but a reporter cannot actually retrace a single figure, or the embed's credit link is missing, hidden, or marked so search engines ignore it, which would remove the entire SEO purpose of the asset.", "links": [{"label": "The money page the credit link points at", "url": "https://westlaketool.com/capabilities/metal-stamping/"}]}, {"id": "D4", "section": "Angle and framing", "lane": "judgment", "minutes": 10, "title": "The conflict-of-interest check: is this tilted toward the client's own turf?", "where": "The whole piece, read once more from the top, with this question only.", "do": "Westlake Tool & Die is an Ohio tool and die and metal stamping firm. The study happens to find that Ohio ranks second in the nation and was hit harder than any other large state, and it happens to conclude that the trade this client is in is the thing standing between America and a manufacturing revival. Ask directly: does Ohio lead because the data puts it there, or because the client is there? Would this piece have been written the same way, with the same ranking rule and the same emphasis, for a firm in Michigan, which is larger, or in Indiana, which is more concentrated? Nobody who built this can answer that honestly, which is why it is being asked of you.", "pass": "You are satisfied that the ordering, the emphasis, and the conclusion follow from the data, and that a competitor in another state would recognize the piece as fair.", "fail": "The client's state gets a dedicated section that other comparable states do not earn, or the ranking rule looks chosen to put Ohio high, or the reshoring conclusion reads as an advertisement for the client's own service line.", "note": "Answer this one in writing even if the answer is that it is fine. It is the check that protects the client relationship rather than the arithmetic, and a one-word pass is not useful."}]}</script>
+<script>
+const DOC = JSON.parse(document.getElementById('doc').textContent);
+const LANES = {"browser": "Browser only", "terminal": "Terminal", "judgment": "Read and judge"};
+const KEY = 'linkbait-audit:' + (DOC.asset && DOC.asset.slug ? DOC.asset.slug : 'unnamed');
+let state = {};
+try { state = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { state = {}; }
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} };
+const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function field(label, value, cls) {
+  if (!value) return '';
+  return `<div class="field ${cls || ''}"><b>${esc(label)}</b>${esc(value)}</div>`;
+}
+
+function renderCheck(c) {
+  const st = (state.checks && state.checks[c.id]) || {};
+  const links = (c.links || []).filter(l => l.url).map(l =>
+    `<li><a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label || l.url)}</a></li>`).join('');
+  let table = '';
+  if (c.table) {
+    const cols = (c.table.columns || []).map(x => `<th>${esc(x)}</th>`).join('');
+    const rows = (c.table.rows || []).map(r => '<tr>' + r.map(cell =>
+      (cell && typeof cell === 'object')
+        ? `<td><a href="${esc(cell.url)}" target="_blank" rel="noopener">${esc(cell.text)}</a></td>`
+        : `<td>${esc(cell)}</td>`).join('') + '</tr>').join('');
+    table = `<div class="scroll"><table><thead><tr>${cols}</tr></thead><tbody>${rows}</tbody></table></div>`;
+  }
+  let cmd = '';
+  if (c.command) {
+    cmd = `<div class="field"><b>Run this</b>
+      <button class="copy" data-copy="${esc(c.command)}">Copy command</button>
+      <pre>${esc(c.command)}</pre>
+      ${c.expected ? `<span class="mono">Expected: ${esc(c.expected)}</span>` : ''}</div>`;
+  }
+  return `<div class="check" id="chk-${esc(c.id)}" data-lane="${esc(c.lane)}" data-state="${esc(st.verdict || '')}">
+    <div class="check-head">
+      <span class="cid">${esc(c.id)}</span>
+      <span class="ctitle">${esc(c.title)}</span>
+      <span class="chip">${esc(LANES[c.lane])}</span>
+      <span class="chip">${esc(c.minutes || 5)} min</span>
+    </div>
+    ${field('Where to look', c.where)}
+    ${links ? `<ul class="links">${links}</ul>` : ''}
+    ${table}
+    ${cmd}
+    ${field('What to do', c.do)}
+    ${field('Passing looks like', c.pass, 'pass')}
+    ${field('Failing looks like', c.fail, 'fail')}
+    ${c.note ? `<p class="mono" style="color:var(--muted)">${esc(c.note)}</p>` : ''}
+    <div class="verdict" data-check="${esc(c.id)}">
+      <button class="vbtn" data-v="pass" aria-pressed="${st.verdict === 'pass'}">Passed</button>
+      <button class="vbtn" data-v="fail" aria-pressed="${st.verdict === 'fail'}">Problem found</button>
+      <button class="vbtn" data-v="na" aria-pressed="${st.verdict === 'na'}">Not applicable</button>
+    </div>
+    <textarea data-note="${esc(c.id)}" placeholder="Notes, and what you actually saw (required if you found a problem)">${esc(st.note || '')}</textarea>
+  </div>`;
+}
+
+function render() {
+  const a = DOC.asset || {};
+  const checks = DOC.checks || [];
+  const risks = DOC.how_this_could_be_wrong || [];
+  const lbn = a.load_bearing_number || null;
+  const counts = {}, mins = {};
+  checks.forEach(c => { counts[c.lane] = (counts[c.lane] || 0) + 1; mins[c.lane] = (mins[c.lane] || 0) + (c.minutes || 5); });
+
+  let sections = '', current = null;
+  checks.forEach(c => {
+    if (c.section !== current) { current = c.section; sections += `<h3 data-section>${esc(current)}</h3>`; }
+    sections += renderCheck(c);
+  });
+
+  const so = state.signoff || {};
+  document.getElementById('app').innerHTML = `
+    <h1>Audit package: ${esc(a.title || 'Untitled study')}</h1>
+    <p class="sub"><b>${esc(a.client || 'Client not recorded')}</b> &middot; asset built ${esc(a.built || 'date not recorded')}
+      ${a.page ? ` &middot; <a href="${esc(a.page)}" target="_blank" rel="noopener">open the page</a>` : ''}
+      ${a.money_page ? ` &middot; <a href="${esc(a.money_page)}" target="_blank" rel="noopener">money page it feeds</a>` : ''}</p>
+    <div class="banner">This asset does not go live and does not go into outreach until someone signs off at the
+      bottom of this page. You are not checking our arithmetic. You are trying to find the thing that would
+      embarrass us if a reporter found it first. Your progress saves in this browser.</div>
+
+    <h2>Start here</h2>
+    <div class="card"><b>What the study claims</b><p style="margin-top:6px">${esc(a.one_paragraph || 'Not recorded.')}</p></div>
+    ${lbn ? `<div class="card">
+      <b>The number everything rests on</b>
+      <p class="big" style="margin:8px 0 4px">${esc(lbn.value)}</p>
+      <dl class="kv">
+        <dt>What it is</dt><dd>${esc(lbn.label)}</dd>
+        <dt>Comes from</dt><dd class="mono">${esc(lbn.field)}</dd>
+        <dt>Built from</dt><dd>${esc(lbn.source)}</dd>
+      </dl>
+      <p style="margin:10px 0 0;color:var(--muted);font-size:14.5px">If this is wrong, the whole piece is wrong. Check it first.</p>
+    </div>` : ''}
+
+    ${risks.length ? `<h2>How this could be wrong</h2>
+      <p class="sub">Written by the people who built it. Each one is a real weakness, not a disclaimer. Decide whether the defence holds.</p>
+      ${risks.map(r => `<div class="card risk"><b>${esc(r.risk)}</b>
+        <p>Why we think it holds: ${esc(r.why_we_think_it_holds)}${r.check ? ` Test it in <a href="#chk-${esc(r.check)}">${esc(r.check)}</a>.` : ''}</p></div>`).join('')}` : ''}
+
+    <h2>The checks</h2>
+    <div class="scroll"><table>
+      <thead><tr><th>Lane</th><th>Checks</th><th>Rough time</th><th>Who can do it</th></tr></thead>
+      <tbody>
+        <tr><td>Browser only</td><td>${counts.browser || 0}</td><td>${mins.browser || 0} min</td><td>Anyone</td></tr>
+        <tr><td>Read and judge</td><td>${counts.judgment || 0}</td><td>${mins.judgment || 0} min</td><td>Anyone with SEO context</td></tr>
+        <tr><td>Terminal</td><td>${counts.terminal || 0}</td><td>${mins.terminal || 0} min</td><td>Someone who can paste a command</td></tr>
+      </tbody>
+    </table></div>
+    <p class="sub">The lanes are independent. Split them across people if that is easier.</p>
+
+    <div class="tabs" id="tabs">
+      <button class="tab" data-lane="all" aria-pressed="true">All</button>
+      <button class="tab" data-lane="browser" aria-pressed="false">Browser only</button>
+      <button class="tab" data-lane="judgment" aria-pressed="false">Read and judge</button>
+      <button class="tab" data-lane="terminal" aria-pressed="false">Terminal</button>
+      <span class="progress" id="progress"></span>
+    </div>
+    ${sections}
+
+    <h2>Sign-off</h2>
+    <div class="card signoff">
+      <label>Reviewer name<input type="text" id="so-name" value="${esc(so.name || '')}"></label>
+      <label style="display:block;margin-top:10px">Date reviewed<input type="text" id="so-date" placeholder="YYYY-MM-DD" value="${esc(so.date || '')}"></label>
+      <div class="verdict" data-signoff>
+        <button class="vbtn" data-v="pass" aria-pressed="${so.verdict === 'pass'}">Ship it</button>
+        <button class="vbtn" data-v="na" aria-pressed="${so.verdict === 'na'}">Ship after fixes</button>
+        <button class="vbtn" data-v="fail" aria-pressed="${so.verdict === 'fail'}">Do not ship</button>
+      </div>
+      <label style="display:block;margin-top:12px"><b>Blocking issues</b> (must change before this goes out)
+        <textarea id="so-blocking">${esc(so.blocking || '')}</textarea></label>
+      <label style="display:block;margin-top:10px"><b>Non-blocking notes</b>
+        <textarea id="so-notes">${esc(so.notes || '')}</textarea></label>
+      <div class="actions">
+        <button class="vbtn primary" id="copy-report">Copy the report</button>
+        <button class="vbtn" id="reset">Clear my answers</button>
+      </div>
+    </div>
+    <footer>Generated by build_audit.py from checks.json and findings.json. Do not edit this file by hand: edit
+      checks.json and rebuild, or the audit and the study drift apart.</footer>`;
+
+  wire();
+  updateProgress();
+  applyLane(state.lane || 'all');
+}
+
+function wire() {
+  document.querySelectorAll('[data-check] .vbtn').forEach(b => b.onclick = () => {
+    const id = b.closest('[data-check]').dataset.check;
+    state.checks = state.checks || {};
+    const cur = state.checks[id] || {};
+    cur.verdict = cur.verdict === b.dataset.v ? '' : b.dataset.v;
+    state.checks[id] = cur; save();
+    b.closest('.verdict').querySelectorAll('.vbtn').forEach(x => x.setAttribute('aria-pressed', x.dataset.v === cur.verdict));
+    document.getElementById('chk-' + id).dataset.state = cur.verdict || '';
+    updateProgress();
+  });
+  document.querySelectorAll('[data-note]').forEach(t => t.oninput = () => {
+    const id = t.dataset.note;
+    state.checks = state.checks || {};
+    state.checks[id] = Object.assign({}, state.checks[id], { note: t.value }); save();
+  });
+  document.querySelectorAll('[data-copy]').forEach(b => b.onclick = () => {
+    navigator.clipboard.writeText(b.dataset.copy).then(() => { b.textContent = 'Copied'; setTimeout(() => b.textContent = 'Copy command', 1400); });
+  });
+  document.querySelectorAll('#tabs .tab').forEach(b => b.onclick = () => { state.lane = b.dataset.lane; save(); applyLane(b.dataset.lane); });
+  document.querySelectorAll('[data-signoff] .vbtn').forEach(b => b.onclick = () => {
+    state.signoff = state.signoff || {};
+    state.signoff.verdict = state.signoff.verdict === b.dataset.v ? '' : b.dataset.v; save();
+    document.querySelectorAll('[data-signoff] .vbtn').forEach(x => x.setAttribute('aria-pressed', x.dataset.v === state.signoff.verdict));
+  });
+  [['so-name', 'name'], ['so-date', 'date'], ['so-blocking', 'blocking'], ['so-notes', 'notes']].forEach(([id, k]) => {
+    const el = document.getElementById(id);
+    el.oninput = () => { state.signoff = Object.assign({}, state.signoff, { [k]: el.value }); save(); };
+  });
+  document.getElementById('reset').onclick = () => {
+    if (confirm('Clear every answer on this page?')) { state = {}; save(); render(); }
+  };
+  document.getElementById('copy-report').onclick = () => navigator.clipboard.writeText(report()).then(() => alert('Report copied. Paste it wherever it needs to go.'));
+}
+
+function applyLane(lane) {
+  document.querySelectorAll('#tabs .tab').forEach(b => b.setAttribute('aria-pressed', b.dataset.lane === lane));
+  document.querySelectorAll('.check').forEach(el => el.classList.toggle('hidden', lane !== 'all' && el.dataset.lane !== lane));
+  document.querySelectorAll('[data-section]').forEach(h => {
+    let n = h.nextElementSibling, any = false;
+    while (n && n.classList.contains('check')) { if (!n.classList.contains('hidden')) any = true; n = n.nextElementSibling; }
+    h.classList.toggle('hidden', !any);
+  });
+}
+
+function updateProgress() {
+  const total = (DOC.checks || []).length;
+  const done = Object.values(state.checks || {}).filter(c => c.verdict).length;
+  const bad = Object.values(state.checks || {}).filter(c => c.verdict === 'fail').length;
+  document.getElementById('progress').textContent = `${done} of ${total} answered${bad ? `, ${bad} problem${bad > 1 ? 's' : ''} found` : ''}`;
+}
+
+function report() {
+  const a = DOC.asset || {}, so = state.signoff || {}, cs = state.checks || {};
+  const verdictWord = { pass: 'Ship it', na: 'Ship after fixes', fail: 'Do not ship' }[so.verdict] || 'No verdict recorded';
+  const lines = [
+    `# Audit result: ${a.title || 'Untitled study'}`, '',
+    `Client: ${a.client || 'not recorded'}`,
+    `Reviewer: ${so.name || 'NOT SIGNED'}`,
+    `Date: ${so.date || 'not recorded'}`,
+    `Verdict: ${verdictWord}`, '',
+  ];
+  const fails = (DOC.checks || []).filter(c => (cs[c.id] || {}).verdict === 'fail');
+  if (fails.length) {
+    lines.push('## Problems found', '');
+    fails.forEach(c => lines.push(`- **${c.id} ${c.title}** — ${(cs[c.id] || {}).note || 'no note left'}`));
+    lines.push('');
+  }
+  const skipped = (DOC.checks || []).filter(c => !(cs[c.id] || {}).verdict);
+  if (skipped.length) lines.push(`## Not checked`, '', skipped.map(c => `- ${c.id} ${c.title}`).join('\n'), '');
+  if (so.blocking) lines.push('## Blocking issues', '', so.blocking, '');
+  if (so.notes) lines.push('## Non-blocking notes', '', so.notes, '');
+  const withNotes = (DOC.checks || []).filter(c => (cs[c.id] || {}).note && (cs[c.id] || {}).verdict !== 'fail');
+  if (withNotes.length) {
+    lines.push('## Reviewer notes on passing checks', '');
+    withNotes.forEach(c => lines.push(`- **${c.id}** — ${cs[c.id].note}`));
+  }
+  return lines.join('\n');
+}
+
+render();
+</script>
+</body>
+</html>
